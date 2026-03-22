@@ -1,5 +1,6 @@
-import { View } from 'react-native';
+import { View, Linking, Pressable } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
+import { PROFILE } from '@/constants/portfolio';
 
 export function HeroSection() {
   return (
@@ -8,19 +9,24 @@ export function HeroSection() {
         안녕하세요, 저는
       </ThemedText>
       <ThemedText type="title" className="mb-4">
-        홍길동
+        {PROFILE.name}
       </ThemedText>
       <ThemedText type="subtitle" className="mb-8 max-w-[560px]">
-        사용자 경험을 최우선으로 생각하는{'\n'}
-        풀스택 개발자입니다.
+        {PROFILE.summary}
       </ThemedText>
       <View className="flex-row gap-3 flex-wrap">
-        <View className="bg-indigo-500 rounded-full px-6 py-3">
+        <Pressable
+          className="bg-indigo-500 rounded-full px-6 py-3 active:opacity-70"
+          onPress={() => Linking.openURL(PROFILE.github)}
+        >
           <ThemedText className="text-white font-semibold text-sm">프로젝트 보기</ThemedText>
-        </View>
-        <View className="border border-slate-500 rounded-full px-6 py-3">
+        </Pressable>
+        <Pressable
+          className="border border-slate-500 rounded-full px-6 py-3 active:opacity-70"
+          onPress={() => Linking.openURL(`mailto:${PROFILE.email}`)}
+        >
           <ThemedText className="text-slate-300 font-semibold text-sm">연락하기</ThemedText>
-        </View>
+        </Pressable>
       </View>
     </View>
   );

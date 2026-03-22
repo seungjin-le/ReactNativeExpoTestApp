@@ -1,61 +1,64 @@
-import { View } from 'react-native';
+import { View, Linking, Pressable } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { SectionWrapper } from './section-wrapper';
+import { PROJECTS } from '@/constants/portfolio';
+import type { Project } from '@/types/portfolio';
 
-type Project = {
-  title: string;
-  description: string;
-  techs: string[];
-  accent: string;
-};
-
-const projects: Project[] = [
-  {
-    title: 'E-Commerce Platform',
-    description:
-      'Next.js App Router 기반의 풀스택 이커머스 플랫폼. SSR과 ISR을 활용한 SEO 최적화 및 Stripe 결제 연동.',
-    techs: ['Next.js', 'TypeScript', 'PostgreSQL', 'Stripe'],
-    accent: 'border-indigo-500',
-  },
-  {
-    title: 'Real-time Chat App',
-    description:
-      'WebSocket 기반 실시간 채팅 애플리케이션. 1:1 채팅, 그룹 채팅, 파일 공유 기능 구현.',
-    techs: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
-    accent: 'border-cyan-400',
-  },
-  {
-    title: 'Task Management Tool',
-    description:
-      '드래그 앤 드롭 기반 칸반 보드. React DnD를 활용한 직관적인 태스크 관리 도구.',
-    techs: ['React', 'NestJS', 'Docker', 'AWS'],
-    accent: 'border-emerald-400',
-  },
-  {
-    title: 'Portfolio Mobile App',
-    description:
-      'React Native + Expo로 개발한 크로스 플랫폼 포트폴리오 앱. NativeWind 스타일링 적용.',
-    techs: ['React Native', 'Expo', 'NativeWind', 'TypeScript'],
-    accent: 'border-amber-400',
-  },
+const accentColors = [
+  'border-indigo-500',
+  'border-cyan-400',
+  'border-emerald-400',
+  'border-amber-400',
+  'border-rose-400',
 ];
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, accent }: { project: Project; accent: string }) {
   return (
-    <View className={`bg-slate-800 rounded-2xl p-6 border-l-4 ${project.accent}`}>
-      <ThemedText className="text-lg font-bold text-slate-50 mb-2">
-        {project.title}
-      </ThemedText>
+    <View className={`bg-slate-800 rounded-2xl p-6 border-l-4 ${accent}`}>
+      <View className="flex-row justify-between items-start mb-1">
+        <ThemedText className="text-lg font-bold text-slate-50 flex-1">
+          {project.title}
+        </ThemedText>
+        <ThemedText className="text-xs text-slate-500 ml-2">{project.period}</ThemedText>
+      </View>
+      <ThemedText className="text-xs text-indigo-400 mb-3">{project.role}</ThemedText>
       <ThemedText className="text-slate-400 text-sm leading-6 mb-4">
         {project.description}
       </ThemedText>
-      <View className="flex-row flex-wrap gap-2">
-        {project.techs.map((tech) => (
+
+      {project.highlights.length > 0 && (
+        <View className="mb-4 gap-1.5">
+          {project.highlights.map((highlight, i) => (
+            <ThemedText key={i} className="text-slate-300 text-xs leading-5">
+              • {highlight}
+            </ThemedText>
+          ))}
+        </View>
+      )}
+
+      <View className="flex-row flex-wrap gap-2 mb-3">
+        {project.techStack.map((tech) => (
           <View key={tech} className="bg-slate-700/50 rounded-md px-3 py-1">
             <ThemedText className="text-xs text-slate-400">{tech}</ThemedText>
           </View>
         ))}
       </View>
+
+      {project.links && project.links.length > 0 && (
+        <View className="flex-row flex-wrap gap-2">
+          {project.links.map((link) => (
+            <Pressable
+              key={link.url}
+              onPress={() => Linking.openURL(link.url)}
+              className="active:opacity-70"
+            >
+              <ThemedText className="text-indigo-400 text-xs font-medium underline">
+                {link.label} →
+              </ThemedText>
+            </Pressable>
+          ))}
+        </View>
+      )}
     </View>
   );
 }
@@ -64,8 +67,12 @@ export function ProjectsSection() {
   return (
     <SectionWrapper label="Projects" title="프로젝트">
       <View className="gap-4">
-        {projects.map((project) => (
-          <ProjectCard key={project.title} project={project} />
+        {PROJECTS.map((project, index) => (
+          <ProjectCard
+            key={project.title}
+            project={project}
+            accent={accentColors[index % accentColors.length]}
+          />
         ))}
       </View>
     </SectionWrapper>

@@ -1,6 +1,7 @@
 import { View, Linking, Pressable } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { SectionWrapper } from './section-wrapper';
+import { PROFILE } from '@/constants/portfolio';
 
 type ContactItem = {
   label: string;
@@ -9,9 +10,11 @@ type ContactItem = {
 };
 
 const contacts: ContactItem[] = [
-  { label: 'Email', value: 'hello@example.com', url: 'mailto:hello@example.com' },
-  { label: 'GitHub', value: 'github.com/username', url: 'https://github.com/username' },
-  { label: 'LinkedIn', value: 'linkedin.com/in/username', url: 'https://linkedin.com/in/username' },
+  { label: 'Email', value: PROFILE.email, url: `mailto:${PROFILE.email}` },
+  { label: 'Phone', value: PROFILE.phone, url: `tel:${PROFILE.phone}` },
+  { label: 'GitHub', value: PROFILE.github.replace('https://', ''), url: PROFILE.github },
+  { label: 'Blog', value: PROFILE.blog.replace('https://', ''), url: PROFILE.blog },
+  { label: 'Location', value: PROFILE.location, url: '' },
 ];
 
 export function ContactSection() {
@@ -23,19 +26,23 @@ export function ContactSection() {
       </ThemedText>
 
       <View className="gap-3">
-        {contacts.map((contact) => (
-          <Pressable
-            key={contact.label}
-            onPress={() => Linking.openURL(contact.url)}
-            className="bg-slate-800 rounded-xl p-5 flex-row items-center justify-between active:opacity-70"
-          >
-            <View>
-              <ThemedText type="caption" className="mb-1">{contact.label}</ThemedText>
-              <ThemedText className="text-indigo-400 font-medium">{contact.value}</ThemedText>
-            </View>
-            <ThemedText className="text-slate-500 text-lg">→</ThemedText>
-          </Pressable>
-        ))}
+        {contacts.map((contact) => {
+          const isLink = contact.url.length > 0;
+          return (
+            <Pressable
+              key={contact.label}
+              onPress={isLink ? () => Linking.openURL(contact.url) : undefined}
+              disabled={!isLink}
+              className="bg-slate-800 rounded-xl p-5 flex-row items-center justify-between active:opacity-70"
+            >
+              <View>
+                <ThemedText type="caption" className="mb-1">{contact.label}</ThemedText>
+                <ThemedText className="text-indigo-400 font-medium">{contact.value}</ThemedText>
+              </View>
+              {isLink && <ThemedText className="text-slate-500 text-lg">→</ThemedText>}
+            </Pressable>
+          );
+        })}
       </View>
     </SectionWrapper>
   );
