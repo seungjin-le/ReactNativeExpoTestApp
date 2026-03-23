@@ -1,10 +1,10 @@
 import { ScrollView, View } from 'react-native';
-import { HeroSection } from '@/components/portfolio/hero-section';
-import { AboutSection } from '@/components/portfolio/about-section';
-import { SkillsSection } from '@/components/portfolio/skills-section';
-import { ProjectsSection } from '@/components/portfolio/projects-section';
-import { ContactSection } from '@/components/portfolio/contact-section';
-import { Footer } from '@/components/portfolio/footer';
+import { HeroSection } from '@/components/portfolio/HeroSection';
+import { AboutSection } from '@/components/portfolio/AboutSection';
+import { SkillsSection } from '@/components/portfolio/SkillsSection';
+import { ProjectsSection } from '@/components/portfolio/ProjectsSection';
+import { ContactSection } from '@/components/portfolio/ContactSection';
+import { Footer } from '@/components/portfolio/Footer';
 
 export default function PortfolioScreen() {
   return (

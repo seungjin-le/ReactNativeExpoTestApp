@@ -1,6 +1,6 @@
 import { View, Linking, Pressable } from 'react-native';
-import { ThemedText } from '@/components/themed-text';
-import { SectionWrapper } from './section-wrapper';
+import { ThemedText } from '@/components/ThemedText';
+import { SectionWrapper } from './SectionWrapper';
 import { PROJECTS } from '@/constants/portfolio';
 import type { Project } from '@/types/portfolio';
 

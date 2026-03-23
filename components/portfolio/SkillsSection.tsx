@@ -1,6 +1,6 @@
 import { View } from 'react-native';
-import { ThemedText } from '@/components/themed-text';
-import { SectionWrapper } from './section-wrapper';
+import { ThemedText } from '@/components/ThemedText';
+import { SectionWrapper } from './SectionWrapper';
 import { SKILLS } from '@/constants/portfolio';
 
 const categoryColors = [

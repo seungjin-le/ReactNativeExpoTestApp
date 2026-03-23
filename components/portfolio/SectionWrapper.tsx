@@ -1,5 +1,5 @@
 import { View, type ViewProps } from 'react-native';
-import { ThemedText } from '@/components/themed-text';
+import { ThemedText } from '@/components/ThemedText';
 
 type SectionWrapperProps = ViewProps & {
   label?: string;

@@ -1,5 +1,5 @@
 import { View, Linking, Pressable } from 'react-native';
-import { ThemedText } from '@/components/themed-text';
+import { ThemedText } from '@/components/ThemedText';
 import { PROFILE } from '@/constants/portfolio';
 
 export function HeroSection() {
