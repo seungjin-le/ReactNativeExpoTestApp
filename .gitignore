@@ -46,3 +46,4 @@ app-example
 .cursor/
 yarn.lock
 .expo/
+.env
